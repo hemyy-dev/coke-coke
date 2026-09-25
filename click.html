@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spider-Man - Coca-Cola</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0d0d0d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+    .video-container {
+      position: relative;
+      width: 90vw;
+      max-width: 900px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(230, 28, 36, 0.3), 0 0 120px rgba(230, 28, 36, 0.1);
+      border: 2px solid rgba(255, 215, 0, 0.2);
+    }
+    .video-container video {
+      width: 100%;
+      display: block;
+      border-radius: 20px;
+    }
+    .video-container::before {
+      content: '🕷️ SPIDER-MAN 🕷️';
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-shadow: 0 0 30px rgba(230, 28, 36, 0.5);
+      background: rgba(0,0,0,0.5);
+      padding: 8px 24px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,215,0,0.2);
+      z-index: 10;
+    }
+    .video-container::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(230,28,36,0.2), transparent 40%, transparent 60%, rgba(255,215,0,0.1));
+      pointer-events: none;
+      z-index: 5;
+    }
+    .back-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #e61c24, #cc0000);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 20px rgba(230, 28, 36, 0.4);
+      transition: all 0.3s ease;
+      z-index: 20;
+      border: 1px solid rgba(255,215,0,0.2);
+    }
+    .back-btn:hover {
+      transform: translateX(-50%) scale(1.05);
+      box-shadow: 0 8px 40px rgba(230, 28, 36, 0.6);
+    }
+    .web-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.05;
+      background:
+        repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px),
+        repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="web-bg"></div>
+  
+  <div class="video-container">
+    <video controls autoplay loop>
+      <source src="./video/spider.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la vidéo.
+    </video>
+  </div>
+
+  <a href="index.html" class="back-btn">← Retour</a>
+</body>
+</html>

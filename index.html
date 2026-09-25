@@ -1,0 +1,2163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coca-Cola - Refresh The Moment</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       VARIABLES
+    ============================================================ */
+    :root {
+      --primary-red: #e61c24;
+      --primary-red-dark: #c4171e;
+      --primary-gold: #f5c518;
+      --card-bg: white;
+      --text-muted: #6c757d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #0d0d0d;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ============================================================
+       SCROLLBAR PERSONNALISÉE
+    ============================================================ */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d0d0d;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary-red);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-gold);
+    }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    .custom-logo {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+    .custom-logo:hover {
+      transform: scale(1.05) rotate(-2deg);
+    }
+
+    .custom-navbar {
+      position: relative;
+      width: 100%;
+      background: transparent;
+      padding: 15px 0;
+      z-index: 10;
+      transition: all 0.4s ease;
+    }
+    .custom-navbar.scrolled {
+      background: rgba(13, 13, 13, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      padding: 10px 0;
+    }
+
+    .navbar-collapse {
+      justify-content: center;
+    }
+    .navbar-nav .nav-item {
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+    .navbar-nav .nav-link {
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9) !important;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .navbar-nav .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-red);
+      transition: width 0.3s ease;
+    }
+    .navbar-nav .nav-link:hover::after,
+    .navbar-nav .nav-link.active::after {
+      width: 100%;
+    }
+    .navbar-nav .nav-link:hover {
+      color: var(--primary-red) !important;
+    }
+    .navbar-nav .nav-link.active {
+      color: var(--primary-red) !important;
+    }
+
+    /* ============================================================
+       BOUTON "CLICK ON ME" SPÉCIAL SPIDER-MAN
+    ============================================================ */
+    .nav-link-spider {
+      background: linear-gradient(135deg, #e61c24, #cc0000) !important;
+      color: white !important;
+      padding: 6px 20px !important;
+      border-radius: 50px !important;
+      font-weight: 700 !important;
+      letter-spacing: 1px !important;
+      border: 2px solid rgba(255, 215, 0, 0.3) !important;
+      box-shadow: 0 0 20px rgba(230, 28, 36, 0.3) !important;
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
+      position: relative !important;
+      overflow: hidden !important;
+      animation: spiderPulse 2s infinite !important;
+    }
+    .nav-link-spider::before {
+      content: '🕷️';
+      margin-right: 6px;
+      display: inline-block;
+      animation: spiderWalk 3s infinite ease-in-out;
+    }
+    .nav-link-spider::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), transparent 50%, rgba(255, 215, 0, 0.1));
+      pointer-events: none;
+    }
+    .nav-link-spider:hover {
+      transform: scale(1.08) translateY(-2px) !important;
+      box-shadow: 0 0 40px rgba(230, 28, 36, 0.6), 0 0 80px rgba(230, 28, 36, 0.2) !important;
+      border-color: rgba(255, 215, 0, 0.6) !important;
+    }
+
+    @keyframes spiderPulse {
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(230, 28, 36, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 40px rgba(230, 28, 36, 0.6), 0 0 60px rgba(255, 215, 0, 0.15);
+      }
+    }
+
+    @keyframes spiderWalk {
+      0%,
+      100% {
+        transform: translateX(0) rotate(0deg);
+      }
+      25% {
+        transform: translateX(3px) rotate(-5deg);
+      }
+      75% {
+        transform: translateX(-3px) rotate(5deg);
+      }
+    }
+
+    .cart-btn {
+      position: relative;
+      color: white;
+      font-size: 1.3rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .cart-btn:hover {
+      color: var(--primary-red);
+      transform: scale(1.1);
+    }
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: var(--primary-red);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse-badge 2s infinite;
+    }
+    @keyframes pulse-badge {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    /* ============================================================
+       SECTION 1 - HERO
+    ============================================================ */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      background-image: url('./images/bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: visible;
+      animation: heroZoom 20s infinite alternate ease-in-out;
+    }
+    @keyframes heroZoom {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.05);
+      }
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+    .hero-section>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* SPIDER-MAN TOUCHE - Toile d'araignée en arrière-plan */
+    .spider-web {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.08;
+      background-image:
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 2%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 2%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 3%);
+      background-size: 100% 100%;
+    }
+    .spider-web::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255, 255, 255, 0.03) 40px, rgba(255, 255, 255, 0.03) 41px),
+        repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255, 255, 255, 0.03) 40px, rgba(255, 255, 255, 0.03) 41px);
+    }
+
+    /* --- BLENDS --- */
+    .blend-hero-menu {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -40px;
+      height: 100px;
+      z-index: 3;
+      pointer-events: none;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%);
+    }
+    .blend-menu-history {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -50px;
+      height: 120px;
+      z-index: 5;
+      pointer-events: none;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 45%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 45%, transparent 100%);
+      background: rgba(13, 13, 13, 0.15);
+    }
+    .blend-history-footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -40px;
+      height: 100px;
+      z-index: 3;
+      pointer-events: none;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%);
+    }
+
+    .subtitle-red {
+      color: var(--primary-red);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      animation: fadeInUp 1s ease;
+    }
+    .hero-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 5rem;
+      line-height: 1;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 1.2s ease;
+    }
+    .hero-title .highlight {
+      color: var(--primary-red);
+      display: block;
+      font-size: 5.5rem;
+      text-shadow: 0 0 40px rgba(230, 28, 36, 0.3);
+    }
+    .hero-description {
+      font-weight: 400;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 440px;
+      margin-bottom: 2rem;
+      animation: fadeInUp 1.4s ease;
+    }
+
+    .btn-coca {
+      background: linear-gradient(135deg, var(--primary-red), var(--primary-red-dark));
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 38px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 6px 25px rgba(230, 28, 36, 0.5);
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 1.6s ease;
+    }
+    .btn-coca::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.2));
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+    .btn-coca:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 40px rgba(230, 28, 36, 0.6);
+      color: #fff;
+    }
+    .btn-coca:hover::after {
+      transform: translateX(0);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .scroll-indicator-container {
+      padding-bottom: 40px;
+      padding-left: 5%;
+      position: relative;
+      z-index: 3;
+      animation: fadeInUp 2s ease;
+    }
+    .scroll-indicator {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .scroll-indicator:hover {
+      color: #ffffff;
+    }
+    .scroll-indicator .arrow-bounce {
+      display: inline-block;
+      animation: bounceDown 1.8s infinite;
+    }
+    @keyframes bounceDown {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(6px);
+      }
+    }
+
+    /* ============================================================
+       SECTION 2 - MENU
+    ============================================================ */
+    .menu-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 0 100px 0;
+      font-family: 'Poppins', sans-serif;
+      background-image: url('./images/bg%20menuee.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      z-index: 1;
+      background-attachment: fixed;
+    }
+    .menu-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+    .menu-section>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .menu-section-title {
+      font-weight: 800;
+      font-size: 2.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 0.2rem;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+    }
+    .menu-section-title span {
+      color: var(--primary-red);
+    }
+    .menu-section-subtitle {
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .product-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(4px);
+      border: none;
+      border-radius: 16px;
+      padding: 16px;
+      height: 100%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      overflow: hidden;
+      position: relative;
+      cursor: default;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-gold));
+      transform: scaleX(0);
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover::before {
+      transform: scaleX(1);
+    }
+    .product-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 60px rgba(230, 28, 36, 0.25);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 140px;
+      object-fit: contain;
+      margin-bottom: 10px;
+      background: #f8f8f8;
+      border-radius: 10px;
+      padding: 8px;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-img {
+      transform: scale(1.08) rotate(-3deg);
+    }
+    .product-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      margin-bottom: 2px;
+    }
+    .product-subtitle {
+      font-weight: 400;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      min-height: 28px;
+      letter-spacing: 0.3px;
+    }
+    .product-price {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--primary-red);
+    }
+
+    .btn-to-cart {
+      background: #f0f0f0;
+      color: #333;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 6px 16px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-to-cart::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--primary-red), var(--primary-gold));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .btn-to-cart:hover::before {
+      opacity: 1;
+    }
+    .btn-to-cart:hover {
+      color: white;
+      transform: scale(1.08);
+    }
+    .btn-to-cart span {
+      position: relative;
+      z-index: 1;
+    }
+    .btn-to-cart.added {
+      background: #1c9e4a;
+      color: white;
+    }
+    .btn-to-cart.added::before {
+      display: none;
+    }
+
+    .nav-arrow {
+      font-size: 2.2rem;
+      color: white;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .nav-arrow:hover {
+      opacity: 1;
+      background: rgba(230, 28, 36, 0.3);
+      transform: scale(1.1);
+    }
+    .nav-arrow:disabled {
+      opacity: 0.2;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-category-label {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
+      border-radius: 50px;
+      padding: 8px 24px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(4px);
+      letter-spacing: 0.5px;
+    }
+    .btn-category-label:hover {
+      background: rgba(230, 28, 36, 0.3);
+      color: white;
+      border-color: var(--primary-red);
+      transform: translateY(-2px);
+    }
+    .btn-category-label.active {
+      background: var(--primary-red);
+      color: white;
+      border-color: var(--primary-red);
+      box-shadow: 0 4px 20px rgba(230, 28, 36, 0.4);
+    }
+
+    .product-item {
+      display: none;
+    }
+    .product-item.active {
+      display: block;
+      animation: fadeSlideUp 0.5s ease;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .page-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .page-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .page-dot.active {
+      background: var(--primary-red);
+      transform: scale(1.5);
+      box-shadow: 0 0 20px rgba(230, 28, 36, 0.5);
+    }
+
+    /* ============================================================
+       SECTION 3 - HISTORY
+    ============================================================ */
+    .history-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 0 60px 0;
+      background: #0a0a0a;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .history-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 10% 20%, rgba(230, 28, 36, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 90% 80%, rgba(230, 28, 36, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(20, 20, 20, 0.9) 0%, #0a0a0a 100%);
+      z-index: 0;
+    }
+    .history-section .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(230, 28, 36, 0.04);
+      pointer-events: none;
+      z-index: 0;
+      animation: float 20s infinite alternate ease-in-out;
+    }
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        transform: translate(50px, -30px) scale(1.1);
+      }
+    }
+    .history-section .particle.p1 {
+      width: 400px;
+      height: 400px;
+      top: -100px;
+      right: -100px;
+      animation-duration: 25s;
+    }
+    .history-section .particle.p2 {
+      width: 300px;
+      height: 300px;
+      bottom: -50px;
+      left: -80px;
+      animation-duration: 20s;
+      animation-delay: -5s;
+    }
+    .history-section .particle.p3 {
+      width: 200px;
+      height: 200px;
+      top: 40%;
+      right: 20%;
+      background: rgba(230, 28, 36, 0.03);
+      animation-duration: 18s;
+      animation-delay: -10s;
+    }
+
+    .history-content {
+      position: relative;
+      z-index: 1;
+    }
+    .history-badge {
+      display: inline-block;
+      background: rgba(230, 28, 36, 0.15);
+      color: var(--primary-red);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 50px;
+      border: 1px solid rgba(230, 28, 36, 0.2);
+      margin-bottom: 0.75rem;
+      animation: fadeInUp 0.8s ease;
+    }
+    .history-year {
+      font-family: 'Oswald', sans-serif;
+      font-size: 8rem;
+      font-weight: 700;
+      line-height: 0.85;
+      color: var(--primary-red);
+      opacity: 0.12;
+      letter-spacing: 8px;
+      margin-bottom: 0.2rem;
+      position: relative;
+      animation: fadeInUp 1s ease;
+    }
+    .history-headline {
+      font-family: 'Oswald', sans-serif;
+      font-size: 3.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #ffffff;
+      margin: -0.5rem 0 1.2rem 0;
+      line-height: 1.1;
+      animation: fadeInUp 1.2s ease;
+    }
+    .history-headline .red {
+      color: var(--primary-red);
+      position: relative;
+    }
+    .history-headline .red::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary-red);
+      opacity: 0.3;
+    }
+    .history-text {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.78);
+      max-width: 620px;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 1.4s ease;
+    }
+    .history-text strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+    .history-text .highlight-red {
+      color: var(--primary-red);
+      font-weight: 600;
+    }
+    .history-quote {
+      font-size: 1rem;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.45);
+      border-left: 3px solid var(--primary-red);
+      padding-left: 1.5rem;
+      margin-top: 1.2rem;
+      max-width: 500px;
+      font-weight: 300;
+      letter-spacing: 0.3px;
+      animation: fadeInUp 1.6s ease;
+    }
+    .history-quote .author {
+      display: block;
+      font-style: normal;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.3);
+      margin-top: 4px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .history-timeline {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      animation: fadeInUp 1.8s ease;
+    }
+    .history-timeline .milestone {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .history-timeline .milestone .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary-red);
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(230, 28, 36, 0.3);
+    }
+    .history-timeline .milestone .line {
+      width: 30px;
+      height: 2px;
+      background: rgba(230, 28, 36, 0.2);
+      flex-shrink: 0;
+    }
+    .history-timeline .milestone .label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .history-timeline .milestone .label strong {
+      color: white;
+      font-weight: 600;
+    }
+    .history-img-wrapper .img-container {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.5s ease;
+      animation: fadeInUp 1.2s ease;
+    }
+    .history-img-wrapper .img-container:hover {
+      transform: scale(1.02) rotate(1deg);
+      box-shadow: 0 30px 80px rgba(230, 28, 36, 0.15);
+    }
+    .history-img-wrapper .img-container img {
+      max-width: 100%;
+      max-height: 450px;
+      object-fit: contain;
+      display: block;
+      background: #0d0d0d;
+      transition: filter 0.5s ease;
+    }
+    .history-img-wrapper .img-container:hover img {
+      filter: brightness(1.05) saturate(1.1);
+    }
+    .history-img-wrapper .img-container .glow-ring {
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(230, 28, 36, 0.15), transparent 40%, transparent 60%, rgba(230, 28, 36, 0.05));
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: #080808;
+      padding: 60px 0 30px 0;
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(230, 28, 36, 0.1);
+    }
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary-red), var(--primary-gold), var(--primary-red), transparent);
+      opacity: 0.3;
+    }
+    .footer-logo {
+      height: 80px;
+      width: auto;
+      object-fit: contain;
+      filter: brightness(0.8);
+      transition: all 0.4s ease;
+    }
+    .footer-logo:hover {
+      filter: brightness(1) drop-shadow(0 0 20px rgba(230, 28, 36, 0.2));
+      transform: scale(1.05);
+    }
+    .footer-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 2px;
+    }
+    .footer-title span {
+      color: var(--primary-red);
+    }
+    .footer-text {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      max-width: 300px;
+    }
+    .footer-heading {
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+    .footer-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: var(--primary-red);
+    }
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-links a::before {
+      content: '›';
+      color: var(--primary-red);
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+    .footer-links a:hover {
+      color: white;
+      transform: translateX(8px);
+    }
+    .footer-links a:hover::before {
+      transform: rotate(10deg) scale(1.2);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .footer-social a:hover {
+      background: var(--primary-red);
+      color: white;
+      transform: translateY(-4px) scale(1.1);
+      border-color: var(--primary-red);
+      box-shadow: 0 8px 25px rgba(230, 28, 36, 0.3);
+    }
+
+    .footer-newsletter input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      padding: 10px 18px;
+      color: white;
+      font-size: 0.8rem;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+    .footer-newsletter input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+    .footer-newsletter input:focus {
+      outline: none;
+      border-color: var(--primary-red);
+      box-shadow: 0 0 20px rgba(230, 28, 36, 0.1);
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .footer-newsletter .btn-subscribe {
+      background: var(--primary-red);
+      border: none;
+      border-radius: 50px;
+      padding: 10px 24px;
+      color: white;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .footer-newsletter .btn-subscribe:hover {
+      background: var(--primary-gold);
+      color: #0d0d0d;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(245, 197, 24, 0.2);
+    }
+
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin: 30px 0 20px 0;
+    }
+    .footer-bottom {
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+    }
+    .footer-bottom a {
+      color: rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-bottom a:hover {
+      color: var(--primary-red);
+    }
+    .footer-bottom .heart {
+      color: var(--primary-red);
+      display: inline-block;
+      animation: heartbeat 1.5s infinite;
+    }
+    @keyframes heartbeat {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+    .toast-cart {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #1c9e4a, #15803d);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 999;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .toast-cart.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .toast-cart i {
+      font-size: 1.2rem;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 992px) {
+      .hero-title {
+        font-size: 3.5rem;
+      }
+      .hero-title .highlight {
+        font-size: 4rem;
+      }
+      .history-year {
+        font-size: 5.5rem;
+      }
+      .history-headline {
+        font-size: 2.6rem;
+      }
+      .history-text {
+        font-size: 0.95rem;
+      }
+      .nav-link-spider {
+        padding: 4px 16px !important;
+        font-size: 0.7rem !important;
+      }
+    }
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.8rem;
+      }
+      .hero-title .highlight {
+        font-size: 3.2rem;
+      }
+      .hero-description {
+        font-size: 0.9rem;
+      }
+      .menu-section-title {
+        font-size: 2rem;
+      }
+      .history-year {
+        font-size: 4.5rem;
+      }
+      .history-headline {
+        font-size: 2rem;
+      }
+      .history-img-wrapper .img-container img {
+        max-height: 280px;
+        margin-top: 20px;
+      }
+      .history-timeline {
+        gap: 1rem;
+      }
+      .history-timeline .milestone .line {
+        width: 16px;
+      }
+      .nav-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+      }
+      .blend-hero-menu {
+        bottom: -30px;
+        height: 70px;
+      }
+      .blend-menu-history {
+        bottom: -35px;
+        height: 80px;
+      }
+      .blend-history-footer {
+        bottom: -30px;
+        height: 70px;
+      }
+      .footer {
+        text-align: center;
+      }
+      .footer-heading::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .footer-text {
+        max-width: 100%;
+      }
+      .footer-social {
+        justify-content: center;
+      }
+      .nav-link-spider {
+        margin: 5px auto !important;
+        display: inline-block !important;
+      }
+    }
+    @media (max-width: 576px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      .hero-title .highlight {
+        font-size: 2.6rem;
+      }
+      .btn-coca {
+        padding: 10px 24px;
+        font-size: 0.7rem;
+      }
+      .history-year {
+        font-size: 3.5rem;
+      }
+      .history-headline {
+        font-size: 1.6rem;
+      }
+      .history-text {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+  SECTION 1 - HERO
+  ============================================================ -->
+  <section class="hero-section">
+    <!-- SPIDER-MAN TOUCHE - Toile d'araignée -->
+    <div class="spider-web"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar" id="mainNav">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img src="./images/coca%20colla%20logo.png" alt="Logo" class="custom-logo" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto text-center align-items-center">
+            <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#menu">Products</a></li>
+            <li class="nav-item"><a class="nav-link" href="#history">History</a></li>
+            <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
+            <!-- BOUTON SPIDER-MAN "CLICK ON ME" -->
+            <li class="nav-item">
+              <a class="nav-link nav-link-spider" href="click.html" target="_blank">
+                Click On Me 🕷️
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <a href="#" class="cart-btn ms-3" id="cartBtn">
+          <i class="bi bi-cart3"></i>
+          <span class="cart-badge" id="cartCount">0</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Contenu Hero -->
+    <div class="container-fluid px-lg-5 my-auto">
+      <div class="row">
+        <div class="col-lg-6 col-md-8 px-lg-5">
+          <p class="subtitle-red">✦ Real Magic ✦</p>
+          <h1 class="hero-title">
+            REFRESH<br />
+            <span class="highlight">THE MOMENT</span>
+          </h1>
+          <p class="hero-description">
+            Coca-Cola is more than a drink — it's a feeling, a connection,
+            a moment that brings us together since 1886.
+          </p>
+          <a href="#menu" class="btn-coca">Discover More &rsaquo;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll -->
+    <div class="scroll-indicator-container">
+      <a href="#menu" class="scroll-indicator">
+        <span class="arrow-bounce">&or;</span> &nbsp; Scroll to explore
+      </a>
+    </div>
+
+    <!-- BLEND HERO → MENU -->
+    <div class="blend-hero-menu"></div>
+  </section>
+
+  <!-- ============================================================
+  SECTION 2 - MENU
+  ============================================================ -->
+  <section id="menu" class="menu-section">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="menu-section-title">OUR <span>PRODUCTS</span></h2>
+        <p class="menu-section-subtitle">Explore our delicious collection</p>
+      </div>
+
+      <!-- Catégories -->
+      <div class="d-flex justify-content-center gap-2 flex-wrap mb-4" id="categoryNav">
+        <button type="button" class="btn-category-label active" data-cat="cans">Cans</button>
+        <button type="button" class="btn-category-label" data-cat="bottles">Bottles</button>
+        <button type="button" class="btn-category-label" data-cat="limited">Limited Editions</button>
+      </div>
+
+      <div class="d-flex align-items-center">
+        <div class="px-2">
+          <button class="nav-arrow" id="arrowLeft" aria-label="Précédent"><i class="bi bi-chevron-left"></i></button>
+        </div>
+
+        <div class="flex-grow-1">
+          <div class="row g-3" id="productRow">
+
+            <!-- ===== CANS ===== -->
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/Classic%20coke.png" class="product-img" alt="Classic Coca" />
+                <div class="product-title">Classic Coca</div>
+                <div class="product-subtitle">original taste</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">80 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/zero%20coke%20cann.png" class="product-img" alt="Classic Coca Zero" />
+                <div class="product-title">Classic Coca Zero</div>
+                <div class="product-subtitle">original taste, zero sugar</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">80 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/vanilla%20coke.png" class="product-img" alt="Coca Vanilla" />
+                <div class="product-title">Coca Vanilla</div>
+                <div class="product-subtitle">rich vanilla flavor</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/vanilla%20zero%20coke%20cann.png" class="product-img" alt="Coca Vanilla Zero" />
+                <div class="product-title">Coca Vanilla Zero</div>
+                <div class="product-subtitle">rich vanilla flavor, zero sugar</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/cherry%20coke.png" class="product-img" alt="Coca Cherry" />
+                <div class="product-title">Coca Cherry</div>
+                <div class="product-subtitle">sweet cherry twist</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/cherry%20zero%20coke.png" class="product-img" alt="Coca Cherry Zero" />
+                <div class="product-title">Coca Cherry Zero</div>
+                <div class="product-subtitle">sweet cherry twist, zero sugar</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/diet%20coke.png" class="product-img" alt="Diet Coke" />
+                <div class="product-title">Diet Coca</div>
+                <div class="product-subtitle">light and refreshing</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/diet%20coke%20zero%20cann.png" class="product-img" alt="Diet Coke Zero" />
+                <div class="product-title">Diet Coca Zero</div>
+                <div class="product-subtitle">light and refreshing, zero sugar</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/lim%20coke.png" class="product-img" alt="Coca Lime" />
+                <div class="product-title">Coca Lime</div>
+                <div class="product-subtitle">zesty lime hint</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/sans%20cafeine%20coke.png" class="product-img" alt="Coca sans caféine" />
+                <div class="product-title">Coca Without Caffeine</div>
+                <div class="product-subtitle">caffeine-free classic</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/sans%20caffeine%20zero.png" class="product-img" alt="Coca sans caféine zero" />
+                <div class="product-title">Coca Without Caffeine Zero</div>
+                <div class="product-subtitle">caffeine-free, zero sugar</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/orage%20cann.png" class="product-img" alt="Coca Orange" />
+                <div class="product-title">Coca Orange</div>
+                <div class="product-subtitle">citrus orange blend</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/orange%20zero.png" class="product-img" alt="Coca Orange Zero" />
+                <div class="product-title">Coca Orange Zero</div>
+                <div class="product-subtitle">citrus orange blend, zero sugar</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/orange%20vanille%20cann.png" class="product-img" alt="Coca Orange Vanilla" />
+                <div class="product-title">Coca Orange Vanilla</div>
+                <div class="product-subtitle">orange & vanilla blend</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/vanilla%20cherry.jpg" class="product-img" alt="Coca Vanilla Cherry" />
+                <div class="product-title">Coca Vanilla Cherry</div>
+                <div class="product-subtitle">vanilla & cherry blend</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/vanilla%20cherry%20zero.png" class="product-img" alt="Coca Vanilla Cherry Zero" />
+                <div class="product-title">Coca Vanilla Cherry Zero</div>
+                <div class="product-subtitle">vanilla & cherry, zero sugar</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-cans">
+              <div class="card product-card">
+                <img src="./images/cofee%20coke.png" class="product-img" alt="Coca Coffee" />
+                <div class="product-title">Coca Coffee</div>
+                <div class="product-subtitle">espresso infusion</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">350 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== BOTTLES ===== -->
+            <div class="col-6 col-md-3 product-item cat-bottles">
+              <div class="card product-card">
+                <img src="./images/Classic%20coke%20bottle.png" class="product-img" alt="Coca Classic Bottle" />
+                <div class="product-title">Coca Classic Bottle</div>
+                <div class="product-subtitle">1.5L family size</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">150 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-bottles">
+              <div class="card product-card">
+                <img src="./images/zero coke bottle - Copie.png" class="product-img" alt="Coca Zero Bottle" />
+                <div class="product-title">Coca Zero Bottle</div>
+                <div class="product-subtitle">1.5L zero sugar</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">150 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-bottles">
+              <div class="card product-card">
+                <img src="./images/diet%20coke%20bottle.png" class="product-img" alt="Coca Diet Bottle" />
+                <div class="product-title">Coca Diet Bottle</div>
+                <div class="product-subtitle">1L light taste</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">250 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-bottles">
+              <div class="card product-card">
+                <img src="./images/diet%20zero%20coke%20bottle.png" class="product-img" alt="Coca Diet Zero Bottle" />
+                <div class="product-title">Coca Diet Zero Bottle</div>
+                <div class="product-subtitle">1L light taste, zero sugar</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">250 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-bottles">
+              <div class="card product-card">
+                <img src="./images/cherry%20coke%20bottle.png" class="product-img" alt="Coca Cherry Bottle" />
+                <div class="product-title">Coca Cherry Bottle</div>
+                <div class="product-subtitle">1.25L cherry flavor</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">400 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-bottles">
+              <div class="card product-card">
+                <img src="./images/cherry%20coke%20zero%20bottle.png" class="product-img" alt="Coca Cherry Zero Bottle" />
+                <div class="product-title">Coca Cherry Zero Bottle</div>
+                <div class="product-subtitle">1.25L cherry flavor, zero sugar</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">400 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-bottles">
+              <div class="card product-card">
+                <img src="./images/vanille%20bottle%20coke.png" class="product-img" alt="Coca Vanilla Bottle" />
+                <div class="product-title">Coca Vanilla Bottle</div>
+                <div class="product-subtitle">1.25L vanilla twist</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">400 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-bottles">
+              <div class="card product-card">
+                <img src="./images/vaniilla%20cokezero%20bottle.png" class="product-img" alt="Coca Vanilla Zero Bottle" />
+                <div class="product-title">Coca Vanilla Zero Bottle</div>
+                <div class="product-subtitle">1.25L vanilla twist, zero sugar</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">400 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-bottles">
+              <div class="card product-card">
+                <img src="./images/glass%20bottle.jpg" class="product-img" alt="Classic Glass Bottle" />
+                <div class="product-title">Classic Glass Bottle</div>
+                <div class="product-subtitle">33cl icon glass</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">120 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== LIMITED ===== -->
+            <div class="col-6 col-md-3 product-item cat-limited">
+              <div class="card product-card">
+                <img src="./images/strlight coke.webp" class="product-img" alt="Coca-Cola Starlight" />
+                <div class="product-title">Coca Starlight</div>
+                <div class="product-subtitle">space flavored edition</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">450 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-limited">
+              <div class="card product-card">
+                <img src="./images/dream wold coke.png" class="product-img" alt="Coca-Cola Dreamworld" />
+                <div class="product-title">Coca Dreamworld</div>
+                <div class="product-subtitle">dream taste creation</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">450 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-limited">
+              <div class="card product-card">
+                <img src="./images/dream wold coke zero.png" class="product-img" alt="Coca-Cola Dreamworld" />
+                <div class="product-title">Coca Dreamworld zero</div>
+                <div class="product-subtitle">dream taste creation</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">450 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-limited">
+              <div class="card product-card">
+                <img src="./images/marshmello coke.png" class="product-img" alt="Coca Marshmello" />
+                <div class="product-title">Coca Marshmello</div>
+                <div class="product-subtitle">strawberry & watermelon</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">500 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 product-item cat-limited">
+              <div class="card product-card">
+                <img src="./images/marshmello zero coke.png" class="product-img" alt="Coca-Cola Y3000" />
+                <div class="product-title">coca zero marshmello</div>
+                <div class="product-subtitle">AI co-created flavor</div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="product-price">500 DA</span>
+                  <button class="btn btn-to-cart"><span>TO CART</span></button>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /row -->
+        </div>
+
+        <div class="px-2">
+          <button class="nav-arrow" id="arrowRight" aria-label="Suivant"><i class="bi bi-chevron-right"></i></button>
+        </div>
+      </div>
+
+      <div class="page-indicator" id="pageIndicator"></div>
+    </div>
+
+    <!-- BLEND MENU → HISTORY -->
+    <div class="blend-menu-history"></div>
+  </section>
+
+  <!-- ============================================================
+  SECTION 3 - HISTORY
+  ============================================================ -->
+  <section id="history" class="history-section">
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+
+    <div class="container history-content">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <div class="history-badge">✦ Since 1886 ✦</div>
+          <div class="history-year">1886</div>
+          <h2 class="history-headline">
+            The Story of <span class="red">Refreshment</span>
+          </h2>
+          <p class="history-text">
+            <strong>Coca‑Cola</strong> was born on <span class="highlight-red">May 8, 1886</span>
+            in Atlanta, Georgia. Dr. <strong>John Stith Pemberton</strong>, a pharmacist,
+            created a distinctive caramel‑colored syrup in a three‑legged brass pot.
+            He carried his new concoction to <strong>Jacobs' Pharmacy</strong>, where it
+            was mixed with carbonated water and sold for <span class="highlight-red">5 cents</span>
+            a glass — just 9 servings a day.
+          </p>
+          <p class="history-text">
+            The name <strong>"Coca‑Cola"</strong> was suggested by Frank M. Robinson,
+            Pemberton's bookkeeper. He thought the <span class="highlight-red">two C's</span>
+            would look great in advertising. The first year's sales totaled
+            <span class="highlight-red">$50</span> — but the spirit was already there.
+          </p>
+          <p class="history-text">
+            In <span class="highlight-red">1899</span>, the first bottling plants were
+            opened, making Coca‑Cola accessible beyond soda fountains. By the
+            <span class="highlight-red">1920s</span>, it had become a global phenomenon,
+            crossing oceans and cultures. The iconic <strong>contour bottle</strong>
+            was introduced in <span class="highlight-red">1915</span> — a design so
+            distinctive it could be recognized in the dark.
+          </p>
+          <p class="history-text">
+            Today, <strong>Coca‑Cola</strong> is more than a beverage. It's a
+            <span class="highlight-red">symbol of connection</span>, of shared moments,
+            of joy that transcends borders. From the <strong>Atlanta soda fountain</strong>
+            to the world's largest brands, the journey has been nothing short of
+            <span class="highlight-red">extraordinary</span>.
+          </p>
+          <div class="history-timeline">
+            <div class="milestone">
+              <span class="dot"></span>
+              <span class="line"></span>
+              <span class="label"><strong>1886</strong> &nbsp; Birth</span>
+            </div>
+            <div class="milestone">
+              <span class="dot"></span>
+              <span class="line"></span>
+              <span class="label"><strong>1915</strong> &nbsp; Contour Bottle</span>
+            </div>
+            <div class="milestone">
+              <span class="dot"></span>
+              <span class="line"></span>
+              <span class="label"><strong>1899</strong> &nbsp; Bottling</span>
+            </div>
+            <div class="milestone">
+              <span class="dot"></span>
+              <span class="line" style="width:0;"></span>
+              <span class="label"><strong>Today</strong> &nbsp; Global Icon</span>
+            </div>
+          </div>
+          <div class="history-quote">
+            “The pause that refreshes.”
+            <span class="author">— Coca‑Cola slogan, 1929</span>
+          </div>
+        </div>
+
+        <div class="col-lg-6 history-img-wrapper">
+          <div class="img-container">
+            <img src="./images/bg%203.png" alt="Vintage Coca-Cola" class="img-fluid" />
+            <div class="glow-ring"></div>
+          </div>
+          <p style="font-size:0.7rem; color: rgba(255,255,255,0.2); text-align:center; margin-top:12px; letter-spacing:1px;">
+            THE ORIGINAL TASTE · SINCE 1886
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLEND HISTORY → FOOTER -->
+    <div class="blend-history-footer"></div>
+  </section>
+
+  <!-- ============================================================
+  FOOTER
+  ============================================================ -->
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="row g-4">
+        <!-- Colonne 1 - Logo & Description -->
+        <div class="col-lg-4 col-md-6">
+          <img src="./images/coca%20colla%20logo.png" alt="Coca-Cola" class="footer-logo mb-3" />
+          <h3 class="footer-title">Coca‑<span>Cola</span></h3>
+          <p class="footer-text mt-3">
+            Refresh the world. Make a difference. Since 1886, Coca‑Cola has
+            been bringing people together, one sip at a time.
+          </p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+          </div>
+        </div>
+
+        <!-- Colonne 2 - Liens rapides -->
+        <div class="col-lg-2 col-md-6">
+          <h5 class="footer-heading">Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Products</a></li>
+            <li><a href="#">History</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+
+        <!-- Colonne 3 - Support -->
+        <div class="col-lg-2 col-md-6">
+          <h5 class="footer-heading">Support</h5>
+          <ul class="footer-links">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Colonne 4 - Newsletter -->
+        <div class="col-lg-4 col-md-6">
+          <h5 class="footer-heading">Stay Connected</h5>
+          <p style="color: rgba(255,255,255,0.4); font-size:0.8rem; margin-bottom:1rem;">
+            Subscribe to get special offers, new flavors, and exclusive updates.
+          </p>
+          <div class="footer-newsletter">
+            <input type="email" placeholder="Your email address" id="newsletterInput" />
+            <button class="btn-subscribe" id="newsletterBtn">
+              <i class="bi bi-envelope-fill me-2"></i> Subscribe
+            </button>
+          </div>
+          <p style="color: rgba(255,255,255,0.15); font-size:0.65rem; margin-top:8px;">
+            No spam, unsubscribe anytime.
+          </p>
+        </div>
+      </div>
+
+      <hr class="footer-divider" />
+
+      <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <span>
+          &copy; 2026 Coca‑Cola. All rights reserved.
+          <span class="heart">♥</span>
+        </span>
+        <span>
+          Made with <span class="heart">♥</span> in Atlanta
+          <span style="color: rgba(255,255,255,0.1); margin:0 8px;">|</span>
+          <i class="bi bi-droplet-fill" style="color: var(--primary-red); font-size:0.6rem;"></i>
+          <i class="bi bi-droplet-fill" style="color: var(--primary-gold); font-size:0.6rem;"></i>
+          <i class="bi bi-droplet-fill" style="color: white; font-size:0.6rem;"></i>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+  TOAST
+  ============================================================ -->
+  <div class="toast-cart" id="toastCart">
+    <i class="bi bi-check-circle-fill"></i> Produit ajouté au panier
+  </div>
+
+
+  SCRIPTS
+  ============================================================ 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // ============================================================
+      // 1. NAVBAR SCROLL EFFECT
+      // ============================================================
+      const navbar = document.getElementById('mainNav');
+      let lastScroll = 0;
+
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 80) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+        lastScroll = currentScroll;
+      });
+
+      // ============================================================
+      // 2. SMOOTH SCROLL FOR NAV LINKS
+      // ============================================================
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // ============================================================
+      // 3. PAGINATION & CATÉGORIES
+      // ============================================================
+      const ITEMS_PER_PAGE = 8;
+      const catButtons = document.querySelectorAll('.btn-category-label');
+      const allItems = document.querySelectorAll('.product-item');
+      const arrowLeft = document.getElementById('arrowLeft');
+      const arrowRight = document.getElementById('arrowRight');
+      const pageIndicator = document.getElementById('pageIndicator');
+
+      let currentCat = 'cans';
+      let currentPage = 0;
+
+      function getItemsForCategory(cat) {
+        return Array.from(allItems).filter(item => item.classList.contains('cat-' + cat));
+      }
+
+      function render() {
+        const items = getItemsForCategory(currentCat);
+        const totalPages = Math.max(1, Math.ceil(items.length / ITEMS_PER_PAGE));
+
+        if (currentPage >= totalPages) currentPage = totalPages - 1;
+        if (currentPage < 0) currentPage = 0;
+
+        const start = currentPage * ITEMS_PER_PAGE;
+        const end = start + ITEMS_PER_PAGE;
+
+        allItems.forEach(item => item.classList.remove('active'));
+        items.slice(start, end).forEach(item => item.classList.add('active'));
+
+        pageIndicator.innerHTML = '';
+        for (let i = 0; i < totalPages; i++) {
+          const dot = document.createElement('span');
+          dot.className = 'page-dot' + (i === currentPage ? ' active' : '');
+          dot.addEventListener('click', () => {
+            currentPage = i;
+            render();
+          });
+          pageIndicator.appendChild(dot);
+        }
+
+        arrowLeft.disabled = currentPage === 0;
+        arrowRight.disabled = currentPage >= totalPages - 1;
+      }
+
+      catButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentCat = btn.dataset.cat;
+          currentPage = 0;
+          catButtons.forEach(b => b.classList.toggle('active', b === btn));
+          render();
+        });
+      });
+
+      arrowLeft.addEventListener('click', () => {
+        if (currentPage > 0) {
+          currentPage--;
+          render();
+        }
+      });
+
+      arrowRight.addEventListener('click', () => {
+        const items = getItemsForCategory(currentCat);
+        const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
+        if (currentPage < totalPages - 1) {
+          currentPage++;
+          render();
+        }
+      });
+
+      // ============================================================
+      // 4. PANIER (avec effet 3D)
+      // ============================================================
+      let cartCount = 0;
+      const cartBadge = document.getElementById('cartCount');
+      const toastCart = document.getElementById('toastCart');
+      let toastTimeout;
+
+      document.querySelectorAll('.btn-to-cart').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const button = e.currentTarget;
+          cartCount++;
+          cartBadge.textContent = cartCount;
+          cartBadge.style.transform = 'scale(1.5)';
+          setTimeout(() => {
+            cartBadge.style.transform = 'scale(1)';
+          }, 300);
+
+          button.classList.add('added');
+          button.innerHTML = '<span>✓ ADDED</span>';
+          setTimeout(() => {
+            button.classList.remove('added');
+            button.innerHTML = '<span>TO CART</span>';
+          }, 1500);
+
+          toastCart.classList.add('show');
+          clearTimeout(toastTimeout);
+          toastTimeout = setTimeout(() => {
+            toastCart.classList.remove('show');
+          }, 2500);
+
+          // Effet ripple
+          const ripple = document.createElement('span');
+          ripple.style.cssText = `
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            width: 60px;
+            height: 60px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: rippleAnim 0.6s ease forwards;
+            pointer-events: none;
+          `;
+          button.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
+        });
+      });
+
+      // Ajout de l'animation ripple dans le style
+      const styleSheet = document.createElement('style');
+      styleSheet.textContent = `
+        @keyframes rippleAnim {
+          to { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(styleSheet);
+
+      // ============================================================
+      // 5. NEWSLETTER
+      // ============================================================
+      const newsletterBtn = document.getElementById('newsletterBtn');
+      const newsletterInput = document.getElementById('newsletterInput');
+
+      newsletterBtn.addEventListener('click', () => {
+        const email = newsletterInput.value.trim();
+        if (email && email.includes('@')) {
+          newsletterBtn.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i> Subscribed!';
+          newsletterBtn.style.background = '#1c9e4a';
+          newsletterInput.value = '';
+          setTimeout(() => {
+            newsletterBtn.innerHTML = '<i class="bi bi-envelope-fill me-2"></i> Subscribe';
+            newsletterBtn.style.background = '';
+          }, 3000);
+        } else {
+          newsletterBtn.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i> Invalid Email';
+          newsletterBtn.style.background = '#e61c24';
+          setTimeout(() => {
+            newsletterBtn.innerHTML = '<i class="bi bi-envelope-fill me-2"></i> Subscribe';
+            newsletterBtn.style.background = '';
+          }, 2500);
+        }
+      });
+
+      newsletterInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') newsletterBtn.click();
+      });
+
+      // ============================================================
+      // 6. PARALLAX SCROLL (pour le menu)
+      // ============================================================
+      const menuSection = document.querySelector('.menu-section');
+      window.addEventListener('scroll', () => {
+        const scrollY = window.pageYOffset;
+        if (menuSection) {
+          const rect = menuSection.getBoundingClientRect();
+          const offset = rect.top + window.pageYOffset;
+          const progress = (window.pageYOffset - offset + window.innerHeight) / (rect.height + window
+          .innerHeight);
+          if (progress > 0 && progress < 1) {
+            menuSection.style.backgroundPositionY = (progress * 20) + '%';
+          }
+        }
+      });
+
+      // ============================================================
+      // 7. ACTIVE NAV LINK ON SCROLL
+      // ============================================================
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.navbar-nav .nav-link:not(.nav-link-spider)');
+
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 150;
+          if (window.pageYOffset >= sectionTop) {
+            current = section.getAttribute('id');
+          }
+        });
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+          }
+        });
+      });
+
+      // ============================================================
+      // 8. INTERSECTION OBSERVER - ANIMATIONS AU SCROLL
+      // ============================================================
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }
+          });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.history-text, .history-quote, .history-timeline, .history-badge, .history-year, .history-headline, .history-img-wrapper .img-container')
+          .forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
+            observer.observe(el);
+          });
+      }
+
+      // Initialisation
+      render();
+    });
+  </script> -->
+
+</body>
+</html>
